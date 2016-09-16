@@ -7,9 +7,9 @@
  * 			State : name, destination, departureDate
  * 			Behavior : visitWebsite(), findCheapestFlight(), placeOrderForFlight(), makePaymentToWebsite()
  *
- * 		Object : TravelAgencyWebsite
+ * 		Object : TravelAgentWebsite
  * 			State : name, allFlights
- * 			Behavior : getAvailableFlights(), accepteOrderFromTourist(), acceptPaymentAndConfirm()
+ * 			Behavior : getAvailableFlights(), acceptOrderFromTourist(), acceptPaymentAndConfirm()
  * 
  * 		Object : Flight
  * 			State : airCompany, price, departureTime, destination
@@ -24,6 +24,7 @@
  * 		Object : Money
  * 			State : amount
  */
+
 import java.util.*;
 public class TravellingToLA {
 	public static void main(String args[]) {
@@ -36,45 +37,47 @@ public class TravellingToLA {
 		Flight f1 = new Flight();
 		f1.destination = "LA";
 		f1.airCompany = "Delta";
-		f1.departureTime = new DateTime("2016-09-30 12:00");
-		f1.price = "200";
+		f1.departureTime = new Date("2016-09-30 12:00");
+		f1.price = 200;
 
 		Flight f2 = new Flight();
 		f2.destination = "LA";
 		f2.airCompany = "Alaska";
-		f2.departureTime = new DateTime("2016-09-30 11:00");
-		f2.price = "150";
+		f2.departureTime = new Date("2016-09-30 11:00");
+		f2.price = 150;
 
-		TravelAgencyWebsite expedia = new TravelAgencyWebsite();
+		TravelAgentWebsite expedia = new TravelAgentWebsite();
 		expedia.name = "expedia";
 		expedia.allFlights = new Flight[]{f1,f2};
-
+		/*
+		 * choose the lowest price for all the flights displayed
+		 */
 		Ruby.visitWebsite(expedia);
 		Flight[] availableFlights = expedia.getAvailableFlights(Ruby);
-		//choose the lowest price for all the flights displayed
 		Flight cheapestFlight = Ruby.findCheapestFlight(availableFlights);
 
 		Ruby.placeOrderForFlight(cheapestFlight);
-		Bill bill = expedia.accepteOrderFromTourist(Ruby, cheapestFlight);
-		Money payment = Ruby.makePaymentToWebsite(expedia, bill);
-		Confirmation ConfirmationForRuby = expedia.acceptPaymentAndConfirm(Ruby, payment);
+		Bill billForRuby = expedia.acceptOrderFromTourist(Ruby, cheapestFlight);
+		Money paymentFromRuby = Ruby.makePaymentToWebsite(expedia, billForRuby);
+		Confirmation ConfirmationForRuby = expedia.acceptPaymentAndConfirm(Ruby, paymentFromRuby);
+	}
 }
 
 class Tourist {
 	String name;
 	String destination;
 	Date departureDate;
-	void visitWebSite(TravelAgentWebsite w){}
+	void visitWebsite(TravelAgentWebsite w){}
 	Flight findCheapestFlight(Flight[] flights){}
 	void placeOrderForFlight(Flight f){}
-	void makePaymentToWebsite(Flight f){}
+	Money makePaymentToWebsite(TravelAgentWebsite w, Bill b){}
 }
 
 class TravelAgentWebsite {
 	String name;
 	Flight[] allFlights; //array of flights
 	Flight[] getAvailableFlights(Tourist t){};
-	Bill accepteOrderFromTourist(Tourist t, Flight f){}
+	Bill acceptOrderFromTourist(Tourist t, Flight f){}
 	Confirmation acceptPaymentAndConfirm(Tourist t, Money m){}
 }
 
@@ -90,12 +93,10 @@ class Confirmation {
 	String confirmationMessage;
 }
 
-class bill
-{
+class Bill {
 	float amount;
 }
 
-class Money
-{
+class Money {
 	float amount;
 }
