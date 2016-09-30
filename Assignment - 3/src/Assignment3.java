@@ -6,12 +6,6 @@ public class Assignment3
 	public static void main(String[] args)
 	{
 		Assignment3 a = new Assignment3();
-		//int[] result = a.findPowerOfThree(5);
-		//System.out.println(result[0] +","+result[1]+","+result[2]+","+result[3]+","+result[4]);
-		//System.out.println(a.countDigits(100));
-		//a.printNumbers(5);
-		a.lengthOfLastWord("souda dahisdh dhaoisdh ");
-		System.out.println(a.checkMessage("SOSSUSSOP"));
 	}
 	/**
 	 * Write a method to find N numbers which are power of three. e.g. n=4,
@@ -147,8 +141,38 @@ public class Assignment3
 	 * soccer" --> "soccer like I"
 	 */
 	public String reverseString2(String str) {
-		
-		return null;
+		StringBuilder sb = new StringBuilder();
+		int end = -1;
+		for(int i=str.length()-1; i>=0; i--)
+		{
+			 //find the first blank space before a word
+			if(str.charAt(i) == ' ')
+			{
+				if(end >= 0)
+				{
+					if(sb.length()>0) sb.append(" ");
+					sb.append(str.substring(i+1, end+1));
+					end = -1;
+				}
+			}
+			
+			 //find the last letter of a word
+			
+			else
+			{
+				if(end<0)
+				{
+					end = i;
+				}
+			}
+		}
+		//add the first word
+		if(end >= 0)
+		{
+			if(sb.length() > 0) sb.append(" ");
+			sb.append(str.substring(0, end+1));
+		}
+		return sb.toString();
 	}
 
 	// Bonus
