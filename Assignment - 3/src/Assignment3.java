@@ -33,6 +33,19 @@ public class Assignment3
 		int count = (int)(Math.log10(Math.abs(n))+1);
 		return n % count;
 	}
+	
+	public int countDigits2(int n)
+	{
+		if(n==0) return 0;
+		int count = 0;
+		int temp = n;
+		while(temp!=0)
+		{
+			temp/=10;
+			count++;
+		}
+		return n%count;	
+	}
 
 	/**
 	 * Given a integer 'n', if n is odd, print n odd numbers, if n is even,
@@ -57,6 +70,16 @@ public class Assignment3
 		{
 			temp = temp+2;
 			System.out.print(temp + " ");
+		}
+	}
+	
+	public void printNumbers2(int n)
+	{
+		int temp = n%2==0?0:1;
+		for(int i=0;i<n;i++)
+		{
+			System.out.print(temp + " ");
+			temp+=2;
 		}
 	}
 
@@ -95,6 +118,11 @@ public class Assignment3
 		vowels.add('i');
 		vowels.add('o');
 		vowels.add('u');
+		vowels.add('A');
+		vowels.add('E');
+		vowels.add('I');
+		vowels.add('O');
+		vowels.add('U');		
 		while(end > begin)
 		{
 			if(vowels.contains(sArray[begin]) && vowels.contains(sArray[end]))
