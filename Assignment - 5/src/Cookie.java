@@ -2,8 +2,8 @@
 public class Cookie extends DessertItem
 {
 
-	protected int number;
-	protected int pricePerDozen;
+	private int number;
+	private int pricePerDozen;
 	
 	public Cookie(String name, int number, int pricePerDozen)
 	{
@@ -12,10 +12,6 @@ public class Cookie extends DessertItem
 		this.pricePerDozen = pricePerDozen;
 	}
 	
-	public String getOriginalName()
-	{
-		return name;
-	}
 	
 	@Override
 	public int getCost()

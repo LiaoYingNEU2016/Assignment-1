@@ -1,8 +1,8 @@
 
 public class Candy extends DessertItem{
 
-	protected double weight;
-	protected double pricePerPound;
+	private double weight;
+	private double pricePerPound;
 	
 	public Candy(String name, double weight, double pricePerPound)
 	{
@@ -11,10 +11,6 @@ public class Candy extends DessertItem{
 		this.pricePerPound = pricePerPound;
 	}
 	
-	public String getOriginalName()
-	{
-		return name;
-	}
 
 	@Override
 	public int getCost()
